@@ -3,11 +3,11 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-// Interface for the PlatformEntity contract
-interface PlatformEntity {
-    function generateNFTForMilestone(address studentAddress, string memory courseName) external;
-    function createCommemorativeNFT(address studentAddress, string memory courseName) external;
-}
+// // Interface for the PlatformEntity contract
+// interface PlatformEntity {
+//     function createNFTForMilestone(address studentAddress, string memory courseName) external;
+//     function createCommemorativeNFT(address studentAddress, string memory courseName) external;
+// }
 
 contract NFTContract is ERC721 {
     address public platformEntityAddress; // Address of the PlatformEntity contract
