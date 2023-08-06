@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 // Interface for the NFT contract
-interface NFTContract {
+interface NFT_contract_interface {
     function createCommemorativeNFT(address student, string memory courseName) external returns (uint256);
     // We can add other necessary functions from the NFT contract if required
 }
@@ -70,7 +70,7 @@ contract PlatformEntity {
     function generateNFTForStudent(address studentAddress, uint256 courseID) external {
         // Perform NFT generation logic and emit the NFT address
         string memory courseName = courses[courseID].name;
-        uint256 nftID = NFTContract(nftContractAddress).createCommemorativeNFT(studentAddress, courseName);
+        uint256 nftID = NFT_contract_interface(nftContractAddress).createCommemorativeNFT(studentAddress, courseName);
         emit NFTCreated(nftID, studentAddress, courseName);
     }
 
