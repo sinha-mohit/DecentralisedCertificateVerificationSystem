@@ -1,0 +1,14 @@
+.welcome {
+    text-align: center;
+  }
+  
+  .centered-text {
+    text-align: center;
+  }
+  
+  .submitted-by {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px; /* You can adjust the font size as per your preference */
+  }
+  

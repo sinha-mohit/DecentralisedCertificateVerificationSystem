@@ -1,0 +1,16 @@
+cd truffle
+change truffle-config.js to connect to Ganache
+
+development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 7545,            // Standard Ethereum port (default: none)
+     network_id: 5777,       // Any network (default: none)
+    },
+
+truffle compile
+truffle migrate
+cd ..\client\
+
+npm start
+
+connect to metamask and Ganache network should ne connect
