@@ -1,11 +1,16 @@
+Install truffle
+fire up ganache
 cd truffle
-change truffle-config.js to connect to Ganache
-
+(change truffle-config.js to connect to Ganache)
 development: {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: 5777,       // Any network (default: none)
     },
+
+cd truffle\contracts
+(add all the contracts)
+npm install --save @openzeppelin/contracts
 
 truffle compile
 truffle migrate
@@ -13,4 +18,4 @@ cd ..\client\
 
 npm start
 
-connect to metamask and Ganache network should ne connect
+connect to metamask and Ganache network should be connected to metamask
