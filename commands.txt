@@ -11,6 +11,8 @@ development: {
 cd truffle\contracts
 (add all the contracts)
 npm install --save @openzeppelin/contracts
+npm install ethers
+
 
 truffle compile
 truffle migrate
@@ -19,3 +21,8 @@ cd ..\client\
 npm start
 
 connect to metamask and Ganache network should be connected to metamask
+
+
+
+# To check functionalty of RegulatedEntity, run
+truffle exec .\scripts\check_functionality.js
