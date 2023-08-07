@@ -2,7 +2,7 @@ function Setup() {
 
   return (
     <>
-      <h2>Preparation</h2>
+      <h2>Setup</h2>
 
       <details>
         <summary>Install</summary>
