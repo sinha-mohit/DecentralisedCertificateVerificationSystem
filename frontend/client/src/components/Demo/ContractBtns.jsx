@@ -1,9 +1,8 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ContractBtns({ setValue }) {
-  const { state: { contract_simpleStorage, contract_regulatedEntity, accounts } } = useEth();
-  const [inputValue, setInputValue] = useState("");
+function ContractBtns() {
+  const { state: { contract_regulatedEntity, accounts } } = useEth();
 
   const [inputValueString, setInputValueString] = useState("");
   const [inputValueInteger, setInputValueInteger] = useState(0);
@@ -27,29 +26,6 @@ function ContractBtns({ setValue }) {
     setInputStudentAddress(event.target.value);
   };
 
-  const handleInputChange = e => {
-    if (/^\d+$|^$/.test(e.target.value)) {
-      setInputValue(e.target.value);
-    }
-  };
-
-  const read = async () => {
-    const value = await contract_simpleStorage.methods.read().call({ from: accounts[0] });
-    setValue(value);
-  };
-
-  const write = async e => {
-    if (e.target.tagName === "INPUT") {
-      return;
-    }
-    if (inputValue === "") {
-      alert("Please enter a value to write.");
-      return;
-    }
-    const newValue = parseInt(inputValue);
-    await contract_simpleStorage.methods.write(newValue).send({ from: accounts[0] });
-  };
-
   const RegisterRegulatedEntity = async e => {
     await contract_regulatedEntity.methods.registerRegulatedEntity().send({ from: accounts[0] });
   }
@@ -70,11 +46,6 @@ function ContractBtns({ setValue }) {
 
   return (
     <div className="btns">
-
-      <button onClick={read}>
-        read()
-      </button>
-
       <button onClick={RegisterRegulatedEntity}>
         RegisterRegulatedEntity()
       </button>
@@ -93,11 +64,10 @@ function ContractBtns({ setValue }) {
           onChange={handleIntegerInputChange}
         />
         <button onClick={RegisterCourse}>Register Course</button>
+      </div>
 
-        
-    </div>
-    <div>
-    <input
+      <div>
+        <input
           type="text"
           placeholder="Student Name"
           value={inputStudentName}
@@ -110,16 +80,7 @@ function ContractBtns({ setValue }) {
           onChange={handleStudentAddressChange}
         />
         <button onClick={RegisterStudent}>Register Student</button>
-    </div>
-      <div onClick={write} className="input-btn">
-        write(<input
-          type="text"
-          placeholder="uint"
-          value={inputValue}
-          onChange={handleInputChange}
-        />)
       </div>
-
     </div>
   );
 }
