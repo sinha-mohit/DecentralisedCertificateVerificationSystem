@@ -18,8 +18,8 @@ function Demo() {
     <div className="demo">
       <Title />
       {
-        !state.artifact_simpleStorage ? <NoticeNoArtifact /> :
-          !state.contract_simpleStorage ? <NoticeWrongNetwork /> :
+        !state.artifact_regulatedEntity ? <NoticeNoArtifact /> :
+          !state.artifact_regulatedEntity ? <NoticeWrongNetwork /> :
             demo
       }
     </div>
