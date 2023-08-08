@@ -91,6 +91,10 @@ function EthProvider({ children }) {
             contract_regulatedEntity,
             contract_NFTContract,
             contract_ExternalVerifier,
+            address_platformEntity,
+            address_regulatedEntity,
+            address_NFTContract,
+            address_ExternalVerifier
 
             // Add contracts for other smart contracts here
           },

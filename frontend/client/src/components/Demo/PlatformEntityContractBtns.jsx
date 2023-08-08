@@ -2,221 +2,195 @@ import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 function PlatformContractBtns() {
-  const { state: { contract_regulatedEntity, accounts } } = useEth();
+  const { state: { contract_platformEntity, accounts } } = useEth();
 
-  const [inputValueString, setInputValueString] = useState("");
-  const [inputValueInteger, setInputValueInteger] = useState();
-  const [inputValueInteger_2, setInputValueInteger_2] = useState();
-  const [inputCourseID, setInputCourseID] = useState();
-  const [inputCourseID_2, setInputCourseID_2] = useState();
-
-
-  const [inputStudentName, setInputStudentName] = useState("");
-  const [inputStudentAddress, setInputStudentAddress] = useState("");
-  const [inputStudentAddress_2, setInputStudentAddress_2] = useState("");
-  const [inputStudentAddress_3, setInputStudentAddress_3] = useState("");
-  const [inputStudentAddress_4, setInputStudentAddress_4] = useState("");
-
-  const [inputPrivateEntityAddress, setInputPrivateEntityAddress] = useState("");
-  
-  const handleStringInputChange = (event) => {
-    setInputValueString(event.target.value);
-  };
-
-  const handleIntegerInputChange = (event) => {
+  // createCourse
+  const [createCourse_inputCourseID, createCourse_setInputValueInteger] = useState("");
+  const handle_createCourse_inputCourseID = (event) => {
     const value = parseInt(event.target.value);
-    setInputValueInteger(isNaN(value) ? 0 : value);
-  };
-
-  const handleIntegerInputChange_2 = (event) => {
-    const value = parseInt(event.target.value);
-    setInputValueInteger_2(isNaN(value) ? 0 : value);
-  };
-
-  const handleInputCourseID = (event) => {
-    const value = parseInt(event.target.value);
-    setInputCourseID(isNaN(value) ? 0 : value);
-  };
-
-  const handleInputCourseID_2 = (event) => {
-    const value = parseInt(event.target.value);
-    setInputCourseID_2(isNaN(value) ? 0 : value);
-  };
-
-  const handleStudentNameChange = (event) => {
-    setInputStudentName(event.target.value);
-  };
-
-  const handleStudentAddressChange = (event) => {
-    setInputStudentAddress(event.target.value);
-  };
-
-  const handleStudentAddressChange_2 = (event) => {
-    setInputStudentAddress_2(event.target.value);
-  };
-
-  const handleStudentAddressChange_3 = (event) => {
-    setInputStudentAddress_3(event.target.value);
-  };
-
-  const handleStudentAddressChange_4 = (event) => {
-    setInputStudentAddress_4(event.target.value);
-  };
-
-  const handlePrivateEntityAddressChange_3 = (event) => {
-    setInputPrivateEntityAddress(event.target.value);
-  };
-
-  const RegisterRegulatedEntity = async e => {
-    await contract_regulatedEntity.methods.registerRegulatedEntity().send({ from: accounts[0] });
-  }
-  
-  const RegisterCourse = async e => {
-    console.log("String Input Value:", inputValueString);
-    console.log("Integer Input Value:", inputValueInteger);
-    await contract_regulatedEntity.methods.registerCourse(inputValueString, inputValueInteger).send({ from: accounts[0] });
-    // Handle the registration logic using the inputValueString and inputValueInteger
+    createCourse_setInputValueInteger(isNaN(value) ? 0 : value);
   }
 
-  const RegisterStudent = async e => {
-    // Handle the student registration logic using inputStudentName and inputStudentAddress
-    console.log("Student Name:", inputStudentName);
-    console.log("Student Address:", inputStudentAddress);
-    await contract_regulatedEntity.methods.registerStudent(inputStudentName, inputStudentAddress).send({ from: accounts[0] });
+  const [createCourse_inputCurseName, createCourse_setInputValueString] = useState("");
+  const handle_createCourse_inputCurseName = (event) => {
+    createCourse_setInputValueString(event.target.value);
   };
 
-  const verifyTranscript = async e => {
-    console.log("Student Address:", inputStudentAddress_4);
-    console.log("Course ID:", inputCourseID_2);
-    await contract_regulatedEntity.methods.verifyTranscript(inputStudentAddress_4, inputCourseID_2).send({ from: accounts[0] });
-  };
+  const createCourse = async e => {
+    console.log("Interger Input Course ID:", createCourse_inputCourseID);
+    console.log("String Input Course Name:", createCourse_inputCurseName);
+    await contract_platformEntity.methods.createCourse(createCourse_inputCourseID, createCourse_inputCurseName).send({ from: accounts[1] });
+  }
 
-  const assignStudentToCourse = async e => {
-    console.log("Student Address:", inputStudentAddress_2);
-    console.log("Course ID:", inputValueInteger_2);
-    await contract_regulatedEntity.methods.assignStudentToCourse(inputStudentAddress_2, inputValueInteger_2).send({ from: accounts[0] });
+  
+  // registerStudentToCourse
+  const [registerStudentToCourse_inputStudentAddress, registerStudentToCourse_setInputValueString] = useState("");
+  const handle_registerStudentToCourse_inputStudentAddress = (event) => {
+    registerStudentToCourse_setInputValueString(event.target.value);
   };
+  
+  const [registerStudentToCourse_inputCourseID, registerStudentToCourse_setInputValueInteger] = useState("");
+  const handle_registerStudentToCourse_inputCourseID = (event) => {
+    const value = parseInt(event.target.value);
+    registerStudentToCourse_setInputValueInteger(isNaN(value) ? 0 : value);
+  }
+
+  const registerStudentToCourse = async e => {
+    console.log("String Input Student Address:", registerStudentToCourse_inputStudentAddress);
+    console.log("String Input Course ID:", registerStudentToCourse_inputCourseID);
+    await contract_platformEntity.methods.registerStudentToCourse(registerStudentToCourse_inputStudentAddress, registerStudentToCourse_inputCourseID).send({ from: accounts[1] });
+  }
 
 
-  const whitelistPrivateEntity = async e => {
-    console.log("Private Entity Address:", inputPrivateEntityAddress);
-    await contract_regulatedEntity.methods.whitelistPrivateEntity(inputPrivateEntityAddress).send({ from: accounts[0] });
-  };
 
-  const addStudentTranscript = async e => {
-    console.log("Student Address:", inputStudentAddress_3);
-    console.log("Course ID:", inputCourseID);
-    await contract_regulatedEntity.methods.addStudentTranscript(inputStudentAddress_3, inputCourseID).send({ from: accounts[0] });
+  // updateCourseProgress
+  const [updateCourseProgress_inputStudentAddress, updateCourseProgress_setInputValueString] = useState("");
+  const handle_updateCourseProgress_inputStudentAddress = (event) => {
+    updateCourseProgress_setInputValueString(event.target.value);
   };
+  
+  const [updateCourseProgress_inputCourseID, updateCourseProgress_setInputValueInteger] = useState("");
+  const handle_updateCourseProgress_inputCourseID = (event) => {
+    const value = parseInt(event.target.value);
+    updateCourseProgress_setInputValueInteger(isNaN(value) ? 0 : value);
+  }
+
+  const [updateCourseProgress_inputCompletedMilestoneIDs, updateCourseProgress_setInputValueArrayInteger] = useState("");
+  const handle_updateCourseProgress_inputCompletedMilestoneIDs = (event) => {
+    const value = event.target.value;
+    // Split the input string into an array of integers
+    const integerArray = value.split(',').map(item => parseInt(item.trim())).filter(item => !isNaN(item));
+    updateCourseProgress_setInputValueArrayInteger(integerArray);
+    // updateCourseProgress_setInputValueArrayInteger(event.target.value);
+  }
+
+  const updateCourseProgress = async e => {
+    console.log("String Input Student Address:", updateCourseProgress_inputStudentAddress);
+    console.log("String Input Course ID:", updateCourseProgress_inputCourseID);
+    console.log("String Input Milestones:", updateCourseProgress_inputCompletedMilestoneIDs);
+    await contract_platformEntity.methods.updateCourseProgress(updateCourseProgress_inputStudentAddress, updateCourseProgress_inputCourseID, updateCourseProgress_inputCompletedMilestoneIDs).send({ from: accounts[1] });
+  }
+
+
+  // setNFTContract
+  const [setNFTContract_inputNFTAddress, setNFTContract_setInputValueString] = useState("");
+  const handle_setNFTContract_inputNFTAddress = (event) => {
+    setNFTContract_setInputValueString(event.target.value);
+  };
+  const setNFTContract = async e => {
+    console.log("String Input NFT Address:", setNFTContract_inputNFTAddress);
+    await contract_platformEntity.methods.setNFTContract(setNFTContract_inputNFTAddress).send({ from: accounts[1] });
+  }
+
+
+  // generateNFTForStudent
+  const [generateNFTForStudent_inputStudentAddress, generateNFTForStudent_setInputValueString] = useState("");
+  const handle_generateNFTForStudent_inputStudentAddress = (event) => {
+    generateNFTForStudent_setInputValueString(event.target.value);
+  };
+  
+  const [generateNFTForStudent_inputCourseID, generateNFTForStudent_setInputValueInteger] = useState("");
+  const handle_generateNFTForStudent_inputCourseID = (event) => {
+    const value = parseInt(event.target.value);
+    generateNFTForStudent_setInputValueInteger(isNaN(value) ? 0 : value);
+  }
+
+  const generateNFTForStudent = async e => {
+    console.log("String Input Student Address:", generateNFTForStudent_inputStudentAddress);
+    console.log("String Input Course ID:", generateNFTForStudent_inputCourseID);
+    await contract_platformEntity.methods.generateNFTForStudent(generateNFTForStudent_inputStudentAddress, generateNFTForStudent_inputCourseID).send({ from: accounts[1] });
+  }
+
+
   return (
     <div className="btns">
       <div>
         {/* for padding */}
       </div>
 
-      {/* RegisterRegulatedEntity */}
+      {/* createCourse */}
       <div>
-        <button onClick={RegisterRegulatedEntity}>
-          Register Regulated Entity
-        </button>
-      </div>
-
-      {/* RegisterCourse */}
-      <div>
+        <input
+          type="number"
+          placeholder="Course ID"
+          value={createCourse_inputCourseID}
+          onChange={handle_createCourse_inputCourseID}
+        />
         <input
           type="text"
           placeholder="Course Name"
-          value={inputValueString}
-          onChange={handleStringInputChange}
+          value={createCourse_inputCurseName}
+          onChange={handle_createCourse_inputCurseName}
         />
-        <input
-          type="number"
-          placeholder="Capacity"
-          value={inputValueInteger}
-          onChange={handleIntegerInputChange}
-        />
-        <button onClick={RegisterCourse}>Register Course</button>
+        <button onClick={createCourse}>Create Course</button>
       </div>
-
-      {/* RegisterStudent */}
-      <div>
-        <input
-          type="text"
-          placeholder="Student Name"
-          value={inputStudentName}
-          onChange={handleStudentNameChange}
-        />
-        <input
-          type="text"
-          placeholder="Student Address"
-          value={inputStudentAddress}
-          onChange={handleStudentAddressChange}
-        />
-        <button onClick={RegisterStudent}>Register Student</button>
-      </div>
-
-      {/* assignStudentToCourse */}
-      <div>
-        <input
-          type="text"
-          placeholder="Student Address"
-          value={inputStudentAddress_2}
-          onChange={handleStudentAddressChange_2}
-        />
-        <input
-          type="number"
-          placeholder="Course ID"
-          value={inputValueInteger_2}
-          onChange={handleIntegerInputChange_2}
-        />
-        <button onClick={assignStudentToCourse}>Assign Student To Course</button>
-      </div>
-
-      {/* whitelistPrivateEntity */}
-      <div>
-        <input
-          type="text"
-          placeholder="Private Entity Address"
-          value={inputPrivateEntityAddress}
-          onChange={handlePrivateEntityAddressChange_3}
-        />
-        <button onClick={whitelistPrivateEntity}>Whitelist a private entity</button>
-      </div>
-
-      {/* addStudentTranscript */}
-      <div>
-        <input
-          type="text"
-          placeholder="Student Address"
-          value={inputStudentAddress_3}
-          onChange={handleStudentAddressChange_3}
-        />
-        <input
-          type="number"
-          placeholder="Course ID"
-          value={inputCourseID}
-          onChange={handleInputCourseID}
-        />
-        <button onClick={addStudentTranscript}>Add student transcript for a course</button>
-      </div>
-
-      {/* verifyTranscript */}
+      {/* registerStudentToCourse */}
       <div>
       <input
           type="text"
           placeholder="Student Address"
-          value={inputStudentAddress_4}
-          onChange={handleStudentAddressChange_4}
+          value={registerStudentToCourse_inputStudentAddress}
+          onChange={handle_registerStudentToCourse_inputStudentAddress}
         />
         <input
           type="number"
           placeholder="Course ID"
-          value={inputCourseID_2}
-          onChange={handleInputCourseID_2}
+          value={registerStudentToCourse_inputCourseID}
+          onChange={handle_registerStudentToCourse_inputCourseID}
         />
-        <button onClick={verifyTranscript}>Student transcript verification</button>
+        <button onClick={registerStudentToCourse}>Register student to course</button>
       </div>
-        
+
+      {/* updateCourseProgress */}
+      <div>
+      <input
+          type="text"
+          placeholder="Student Address"
+          value={updateCourseProgress_inputStudentAddress}
+          onChange={handle_updateCourseProgress_inputStudentAddress}
+        />
+        <input
+          type="number"
+          placeholder="Course ID"
+          value={updateCourseProgress_inputCourseID}
+          onChange={handle_updateCourseProgress_inputCourseID}
+        />
+        <input
+          type="text"
+          placeholder="Percentage in integer"
+          value={updateCourseProgress_inputCompletedMilestoneIDs}
+          onChange={handle_updateCourseProgress_inputCompletedMilestoneIDs}
+        />
+        <button onClick={updateCourseProgress}>Update student course progress</button>
+      </div>
+
+      {/* setNFTContract */}
+      <div>
+      <input
+          type="text"
+          placeholder="NFT Address"
+          value={setNFTContract_inputNFTAddress}
+          onChange={handle_setNFTContract_inputNFTAddress}
+        />
+        <button onClick={setNFTContract}>Set the address of the NFT contract</button>
+      </div>
+
+      {/* generateNFTForStudent */}
+      <div>
+      <input
+          type="text"
+          placeholder="Student Address"
+          value={generateNFTForStudent_inputStudentAddress}
+          onChange={handle_generateNFTForStudent_inputStudentAddress}
+        />
+        <input
+          type="number"
+          placeholder="Course ID"
+          value={generateNFTForStudent_inputCourseID}
+          onChange={handle_generateNFTForStudent_inputCourseID}
+        />
+        <button onClick={generateNFTForStudent}>Generate NFT for student</button>
+      </div>
     </div>
   );
 }

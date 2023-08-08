@@ -20,6 +20,13 @@ function Demo() {
           <RegulatedEntityContractBtns />
         </div>
     </details>  
+    
+    <details>
+      <summary><PlatformEntityTitle /></summary>
+        <div className="contract-container">
+          <PlatformEntityContractBtns />
+        </div>
+    </details>
 
     <details>
       <summary><PrivateEntityTitle /></summary>
@@ -28,12 +35,7 @@ function Demo() {
         </div>
     </details>
 
-    <details>
-      <summary><PlatformEntityTitle /></summary>
-        <div className="contract-container">
-          <PlatformEntityContractBtns />
-        </div>
-    </details>
+   
     </>;
 
   return (
